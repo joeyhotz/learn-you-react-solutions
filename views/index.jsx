@@ -30,22 +30,34 @@ class TodoList extends React.Component {
 }
 
 class Todo extends React.Component {
-    render() {
-        Todo.propTypes = {
-            title: PropTypes.string.isRequired,
-            children: PropTypes.string.isRequired
-        };
+    constructor(props) {
+        super(props);
+        this.state = { checked: false }
+    }
 
-        const todoStyle = { border : '1px solid black;' }
-    
+    handleChange(e) {
+        this.setState({
+            checked: !e.target.checked
+        })
+    }
+
+    render() {
         return (
             <tr>
-                <td style={todoStyle}>{this.props.title}</td>
-                <td style={todoStyle}>{this.props.children}</td>
+                <td style={{border: "1px solid black;"}}>
+                    <input type="checkbox" checked={this.state.checked} onChange={this.handleChange.bind(this)}/>
+                </td>
+                <td style={{border: "1px solid black;"}}>{this.props.title}</td>
+                <td style={{border: "1px solid black;"}}>{this.props.children}</td>
             </tr>
         );
     }
 }
+
+Todo.propTypes = {
+    title: PropTypes.string.isRequired,
+}
+
 
 class TodoForm extends React.Component {
     render() {
